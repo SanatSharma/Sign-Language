@@ -1,10 +1,11 @@
 [![DOI](https://zenodo.org/badge/122105084.svg)](https://zenodo.org/badge/latestdoi/122105084)
 
 # Sign-Language
-A very simple CNN project.
 
-## Note
-Simple-OpenCV-Calculator and this project are merged to one. Simple-OpenCV-Calculator will no longer be maintained.
+Sign Language detector
+1) Create histogram
+2) Train keras model
+3) Run experiments and create words
 
 ## What I did here
 1. The first thing I did was, I created 44 gesture samples using OpenCV. For each gesture I captured 1200 images which were 50x50 pixels. All theses images were in grayscale which is stored in the gestures/ folder. The pictures were flipped using flip_images.py. This script flips every image along the vertical axis. Hence each gesture has 2400 images.
