@@ -44,7 +44,7 @@ def cnn_model():
 	#checkpoint2 = ModelCheckpoint(filepath, monitor='val_loss', verbose=1, save_best_only=True, mode='min')
 	callbacks_list = [checkpoint1]
 	from keras.utils import plot_model
-	plot_model(model, to_file='model.png', show_shapes=True)
+	#plot_model(model, to_file='model.png', show_shapes=True)
 	return model, callbacks_list
 
 def train():
@@ -65,7 +65,7 @@ def train():
 
 	model, callbacks_list = cnn_model()
 	model.summary()
-	model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=20, batch_size=500, callbacks=callbacks_list)
+	model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=10, batch_size=500, callbacks=callbacks_list)
 	scores = model.evaluate(test_images, test_labels, verbose=0)
 	print("CNN Error: %.2f%%" % (100-scores[1]*100))
 	#model.save('cnn_model_keras2.h5')

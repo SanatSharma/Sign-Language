@@ -11,9 +11,9 @@ def pickle_images_labels():
 	labels = []
 	for g_id in os.listdir(gest_folder):
 		print("Loading", gest_folder+"/"+g_id)
-		for i in range(1000):
-			#print("LOADING", gest_folder+"/"+g_id+"/"+str(i+1)+".jpg")
-			img = cv2.imread(gest_folder+"/"+g_id+"/"+str(i+1)+".jpg", 0)
+		for i in range(800):
+			#print("LOADING", gest_folder+"/"+g_id+"/"+str(i*3+1)+".jpg")
+			img = cv2.imread(gest_folder+"/"+g_id+"/"+str(i*3+1)+".jpg", 0)
 			if np.any(img == None):
 				continue
 			images_labels.append((np.array(img, dtype=np.uint8), int(g_id)))
