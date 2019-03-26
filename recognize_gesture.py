@@ -11,6 +11,7 @@ tf.logging.set_verbosity(tf.logging.ERROR)
 classifier = tf.estimator.Estimator(model_dir="tmp/cnn_model2", model_fn=cnn_model_fn)
 prediction = None
 model = load_model('cnn_model_keras2.h5')
+bad_word = "Fuck"
 
 def get_image_size():
 	img = cv2.imread('gestures/0/100.jpg', 0)
@@ -128,8 +129,10 @@ def recognize():
 				print(pred_class, pred_probab)
 				
 				if pred_probab*100 > 80:
-					text = get_pred_text_from_db(pred_class)
-					print(text)
+					temp = get_pred_text_from_db(pred_class)
+					if pred_class!= 42:						
+						print(temp)
+						text = temp
 			
 		blackboard = np.zeros((480, 640, 3), dtype=np.uint8)
 		splitted_text = split_sentence(text, 2)
