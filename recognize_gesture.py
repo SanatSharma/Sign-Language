@@ -86,7 +86,7 @@ def get_hand_hist():
 
 def recognize():
 	global prediction
-	cam = cv2.VideoCapture(1)
+	cam = cv2.VideoCapture(0)
 	if cam.read()[0] == False:
 		cam = cv2.VideoCapture(0)
 	hist = get_hand_hist()
@@ -106,9 +106,14 @@ def recognize():
 		thresh = cv2.merge((thresh,thresh,thresh))
 		thresh = cv2.cvtColor(thresh, cv2.COLOR_BGR2GRAY)
 		thresh = thresh[y:y+h, x:x+w]
-		contours = cv2.findContours(thresh.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[1]
+
+		# Note that find Contours is different for different version of OpenCV
+		# Use _, contours, _ for OpenCV 3.x
+		contours, _ = cv2.findContours(thresh.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+		#print(contours)
 		if len(contours) > 0:
-			contour = max(contours, key = cv2.contourArea)
+			
+			contour = max(contours, key = cv2.contourArea)			
 			#print(cv2.contourArea(contour))
 			if cv2.contourArea(contour) > 10000:
 				x1, y1, w1, h1 = cv2.boundingRect(contour)
@@ -125,6 +130,7 @@ def recognize():
 				if pred_probab*100 > 80:
 					text = get_pred_text_from_db(pred_class)
 					print(text)
+			
 		blackboard = np.zeros((480, 640, 3), dtype=np.uint8)
 		splitted_text = split_sentence(text, 2)
 		put_splitted_text_in_blackboard(blackboard, splitted_text)
